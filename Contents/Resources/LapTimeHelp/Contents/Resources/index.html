@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<title>LapTime Reference</title>
+		<meta name="AppleTitle" content="LapTime Reference" />
+
+		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+		<link href="assets/default.css" type="text/css" rel="stylesheet" media="all" />
+        <link href="assets/applescript.css" type="text/css" rel="stylesheet" media="all" />
+		<meta name="keywords" content="LapTime, AppleScript" />
+		<script type="text/javascript" src="assets-helpbook/run_helpscript.js"></script>
+		<script type="text/javascript" src="assets/navibar-jump.js"></script>
+        <link id="helpviewer-handler-helper" href="assets-helpbook/helpviewer-handler-helper.scpt" />
+        <script type="text/javascript" src="assets-helpbook/helpviewer-handler-enable.js"></script>
+        <link href="./" id="HelpBookRoot" />
+	</head>
+
+	<body>
+		<div id="navi-bar">
+			<div class="edit-script-link">
+				<a onclick="return runHelpScriptWithBundleRoot(this)" href="assets-helpbook/editScript.scpt">Edit Script</a>
+			</div>
+			<div class="left-contents">
+			<div class="to-root">
+				<!-- InstanceBeginEditable name="to-root" --><!-- InstanceEndEditable -->
+			</div>
+			<select onchange="navibarJump(this)">
+<option value="">
+§
+</option>
+<option value="#Constructor">
+Constructor 
+</option>
+<option value="#start_timer">
+- start_timer
+</option>
+<option value="#Instance_Methods">
+Instance Methods
+</option>
+<option value="#duration">
+- duration
+</option>
+<option value="#record_time">
+- record_time
+</option>
+<option value="#lap_times">
+- lap_times
+</option>
+<option value="#total_time">
+- total_time
+</option>
+</select>
+			</div>
+		</div>
+		<!-- InstanceBeginEditable name="prev-next-item" --><!-- InstanceEndEditable -->
+		<div id="contents">
+		<h1>LapTime Reference</h1>
+<ul>
+<li>Version : 1.0</li>
+<li>Author : Kurita Tetsuro <a href="mailto:scriptfactory@mac.com">scriptfactory@mac.com</a></li>
+<li>Requirements : 
+<ul>
+<li>OS X 10.9 or later</li>
+<li><a href="http://www.script-factory.net/XModules/XList/en/index.html">XList</a></li>
+</ul>
+</li>
+<li><a href="http://www.script-factory.net/XModules/LapTime/en/index.html">Home page</a> || <a href="http://www.script-factory.net/XModules/LapTime/changelog.html">ChangeLog</a> || <a href="https://github.com/tkurita/LapTime.scptd">Repository</a> </li>
+</ul>
+<p>LapTime is an AppleScript library to measure execution time of a script of AppleScript. It is useful to evaluate performance of the script and to tune up the script.</p>
+<p>You can measure execution time by using current date command which is AppleScript's built-in command. But time resolution of AppleScript's date class is 1 sec, which is too rough for performance measurements. The time resolution of LapTime is under a several msec.</p>
+<p>You can obtain time differences bettween commands of LapTime as follows. The simple usage is using <a href="pages/start_timer.html">start_timer</a> and <a href="pages/duration.html">duration</a>. <a href="pages/start_timer.html">start_timer</a> generate a new timer object. <a href="pages/duration.html">duration</a> command obtain elapsed time from <a href="pages/start_timer.html">start_timer</a> command.</p>
+<p><a href="pages/record_time.html">record_time</a> method records the called timing in the LapTime instance.Elapsed times between <a href="pages/record_time.html">record_time</a> can be obtained by <a href="pages/lap_times.html">lap_times</a>.</p>
+<div class="sourceCode">
+<div class="scriptButton">
+    <input type="button" value="Open this script" onclick="document.location = this.src" src="applescript://com.apple.scripteditor?action=new&amp;script=use%20LapTime%20:%20script%20%22LapTime%22%0D%0Dset%20tm%20to%20LapTime%27s%20start_timer()%0Dtm%27s%20record_time()%20--%20record%20the%20timming%0Ddelay%200.1%0Dtm%27s%20record_time()%0Ddelay%200.2%0Dtm%27s%20record_time()%0D%0D--%20pretty%20print%20elapsed%20times%20between%20record_time%20%0Dtm%27s%20lap_times()%0D(*%5BLapTime%20records%5D%0D8.116960525513%20%5Bms%5D%0D112.017035484314%20%5Bms%5D%0D210.969924926758%20%5Bms%5D*)%0D%0D--%20obtain%20tatal%20of%20lap%20times%0Dtm%27s%20total_time()%20--331.103920936584%20%5Bms%5D%0D%0D--%20obtain%20elapsed%20time%20form%20start_timer()%0Dtm%27s%20duration()%20--372.91693687439%20%5Bms%5D" />
+</div><div>
+<span class="langKeyword">use</span> <span class="userDefine">LapTime</span><span class="normal"> : </span><span class="className">script</span><span class="normal"> &quot;LapTime&quot;</span>
+</div>
+<br />
+<div>
+<span class="langKeyword">set</span> <span class="userDefine">tm</span> <span class="langKeyword">to</span> <span class="userDefine">LapTime's</span> <span class="userDefine">start_timer</span><span class="normal">()</span>
+</div>
+<div>
+<span class="userDefine">tm's</span> <span class="userDefine">record_time</span><span class="normal">() </span><span class="comment">-- record the timming</span>
+</div>
+<div>
+<span class="commandName">delay</span><span class="normal"> 0.1</span>
+</div>
+<div>
+<span class="userDefine">tm's</span> <span class="userDefine">record_time</span><span class="normal">()</span>
+</div>
+<div>
+<span class="commandName">delay</span><span class="normal"> 0.2</span>
+</div>
+<div>
+<span class="userDefine">tm's</span> <span class="userDefine">record_time</span><span class="normal">()</span>
+</div>
+<br />
+<div>
+<span class="comment">-- pretty print elapsed times between record_time </span>
+</div>
+<div>
+<span class="userDefine">tm's</span> <span class="userDefine">lap_times</span><span class="normal">()</span>
+</div>
+<div>
+<span class="comment">(*[LapTime records]</span>
+</div>
+<div>
+<span class="comment">8.116960525513 [ms]</span>
+</div>
+<div>
+<span class="comment">112.017035484314 [ms]</span>
+</div>
+<div>
+<span class="comment">210.969924926758 [ms]*)</span>
+</div>
+<br />
+<div>
+<span class="comment">-- obtain tatal of lap times</span>
+</div>
+<div>
+<span class="userDefine">tm's</span> <span class="userDefine">total_time</span><span class="normal">() </span><span class="comment">--331.103920936584 [ms]</span>
+</div>
+<br />
+<div>
+<span class="comment">-- obtain elapsed time form start_timer()</span>
+</div>
+<div>
+<span class="userDefine">tm's</span> <span class="userDefine">duration</span><span class="normal">() </span><span class="comment">--372.91693687439 [ms]</span>
+</div>
+</div>
+<h2 id="Constructor">Constructor </h2>
+<h3 id="start_timer"><a href="pages/start_timer.html">start_timer</a></h3>
+<p>Make an instance of LapTime</p>
+<h2 id="Instance_Methods">Instance Methods</h2>
+<h3 id="duration"><a href="pages/duration.html">duration</a></h3>
+<p>Return elapsed time form <a href="pages/start_timer.html">start_timer</a> in msec</p>
+<h3 id="record_time"><a href="pages/record_time.html">record_time</a></h3>
+<p>Record elapsed time form <a href="pages/start_timer.html">start_timer</a> in the instance</p>
+<h3 id="lap_times"><a href="pages/lap_times.html">lap_times</a></h3>
+<p>Return time difference in msec between times recorded with <a href="pages/record_time.html">record_time</a> </p>
+<h3 id="total_time"><a href="pages/total_time.html">total_time</a></h3>
+<p>Return time difference between <a href="pages/start_timer.html">start_timer</a> and last <a href="pages/record_time.html">record_time</a> in msec</p>
+		</div>
+		<!-- InstanceBeginEditable name="prev-next-item" --><!-- InstanceEndEditable -->
+	</body>
+
+</html>

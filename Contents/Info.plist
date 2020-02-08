@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleHelpBookFolder</key>
+	<string>LapTimeHelp</string>
+	<key>CFBundleHelpBookName</key>
+	<string>net.script-factory.LapTime.help</string>
+	<key>CFBundleIdentifier</key>
+	<string>net.script-factory.LapTime</string>
+	<key>CFBundleName</key>
+	<string>LapTime</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright 2020, Kurita Tetsuro</string>
+	<key>WindowState</key>
+	<dict>
+		<key>bundleDividerCollapsed</key>
+		<true/>
+		<key>bundlePositionOfDivider</key>
+		<real>0.0</real>
+		<key>dividerCollapsed</key>
+		<true/>
+		<key>eventLogLevel</key>
+		<integer>2</integer>
+		<key>name</key>
+		<string>ScriptWindowState</string>
+		<key>positionOfDivider</key>
+		<real>388</real>
+		<key>savedFrame</key>
+		<string>153 157 990 679 0 0 1440 877 </string>
+		<key>selectedTab</key>
+		<string>result</string>
+	</dict>
+</dict>
+</plist>
