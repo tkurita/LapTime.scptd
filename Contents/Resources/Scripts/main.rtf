@@ -1,0 +1,486 @@
+{\rtf1\ansi\ansicpg932\cocoartf1671\cocoasubrtf600
+{\fonttbl\f0\fnil\fcharset0 Verdana;\f1\fnil\fcharset0 Verdana-Bold;\f2\fnil\fcharset0 Verdana-Italic;
+\f3\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red76\green78\blue78;\red0\green0\blue0;\red108\green5\blue211;
+\red0\green0\blue255;\red64\green128\blue0;\red128\green0\blue128;\red0\green22\blue176;}
+{\*\expandedcolortbl;;\csgenericrgb\c29999\c30457\c30457;\csgenericrgb\c0\c0\c0;\csgenericrgb\c42337\c1841\c82833;
+\csgenericrgb\c0\c0\c100000;\csgenericrgb\c25000\c50001\c0;\csgenericrgb\c50001\c0\c50001;\csgenericrgb\c0\c8656\c68986;}
+\pard\tx577\tx1155\tx1733\tx2311\tx2889\tx3467\tx4045\tx4623\tx5201\tx5779\tx6357\tx6935\tx7513\tx8091\tx8669\tx9247\tx9825\tx10403\tx10981\tx11559\tx12137\tx12715\tx13293\tx13871\tx14449\tx15027\tx15605\tx16183\tx16761\tx17339\tx17917\tx18495\tx19072\tx19650\tx20228\tx20806\tx21384\tx21962\tx22540\tx23118\tx23696\tx24274\tx24852\tx25430\tx26008\tx26586\tx27164\tx27742\tx28320\tx28898\tx29476\tx30054\tx30632\tx31210\tx31788\tx32366\tx32944\tx33522\tx34100\tx34678\tx35256\tx35834\tx36412\tx36990\tx37567\tx38145\tx38723\tx39301\tx39879\tx40457\tx41035\tx41613\tx42191\tx42769\tx43347\tx43925\tx44503\tx45081\tx45659\tx46237\tx46815\tx47393\tx47971\tx48549\tx49127\tx49705\tx50283\tx50861\tx51439\tx52017\tx52595\tx53173\tx53751\tx54329\tx54907\tx55485\tx56062\tx56640\tx57218\tx57796\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf2 \CocoaLigature0 (* Copyright (C) 2020 Kurita Tetsuro\
+\
+This program is free software: you can redistribute it and/or modify\
+it under the terms of the GNU General Public License as published by\
+the Free Software Foundation, either version 3 of the License, or\
+(at your option) any later version.\
+\
+Foobar is distributed in the hope that it will be useful,\
+but WITHOUT ANY WARRANTY; without even the implied warranty of\
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\
+GNU General Public License for more details.\
+\
+You should have received a copy of the GNU General Public License\
+along with Foobar.  If not, see <http://www.gnu.org/licenses/> *)\cf3 \
+\
+
+\f1\b \cf3 property
+\f0\b0 \cf3  \cf4 name\cf3  : "LapTime"\
+
+\f1\b \cf3 use
+\f0\b0 \cf3  
+\f2\i \cf5 scripting additions
+\f0\i0 \cf3 \
+
+\f1\b \cf3 use
+\f0\b0 \cf3  
+\f2\i \cf5 framework
+\f0\i0 \cf3  "Foundation"\
+
+\f1\b \cf3 use
+\f0\b0 \cf3  \cf6 XList\cf3  : 
+\f2\i \cf5 script
+\f0\i0 \cf3  "XList"\
+\
+\cf2 (*!@references\
+Home page || http://www.script-factory.net/XModules/LapTime/en/index.html\
+ChangeLog || http://www.script-factory.net/XModules/LapTime/changelog.html\
+Repository || https://github.com/tkurita/LapTime.scptd\
+XList || http://www.script-factory.net/XModules/XList/en/index.html\
+\
+@title LapTime Reference\
+* Version : 1.0\
+* Author : Kurita Tetsuro ((<scriptfactory@mac.com>))\
+* Requirements : \
+  * OS X 10.9 or later\
+  * ((<XList>))\
+* ((<Home page>)) || ((<ChangeLog>)) || ((<Repository>)) \
+\
+LapTime is an AppleScript library to measure execution time of a script of AppleScript. \
+It is useful to evaluate performance of the script and to tune up the script.\
+\
+You can measure execution time by using current date command which is AppleScript's built-in command. \
+But time resolution of AppleScript's date class is 1 sec, which is too rough for performance measurements. \
+The time resolution of LapTime is under a several msec.\
+\
+You can obtain time differences bettween commands of LapTime as follows. \
+The simple usage is using ((<start_timer>)) and ((<duration>)). \
+((<start_timer>)) generate a new timer object. \
+((<duration>)) command obtain elapsed time from ((<start_timer>)) command.\
+\
+((<record_time>)) method records the called timing in the LapTime instance.\
+Elapsed times between ((<record_time>)) can be obtained by ((<lap_times>)).\
+\
+@example\
+use LapTime : script "LapTime"\
+\
+set tm to LapTime's start_timer()\
+tm's record_time() -- record the timming\
+delay 0.1\
+tm's record_time()\
+delay 0.2\
+tm's record_time()\
+\
+-- pretty print elapsed times between record_time \
+tm's lap_times()\
+(*[LapTime records]\
+8.116960525513 [ms]\
+112.017035484314 [ms]\
+210.969924926758 [ms]*)\
+\
+-- obtain tatal of lap times\
+tm's total_time() --331.103920936584 [ms]\
+\
+-- obtain elapsed time form start_timer()\
+tm's duration() --372.91693687439 [ms]\
+*)\cf3 \
+\
+\cf2 (*!@group Constructor \
+\
+@abstruct Make an instance of LapTime\
+@result script object\
+*)\cf3 \
+
+\f1\b \cf3 on
+\f0\b0 \cf3  \cf6 start_timer\cf3 ()\
+	
+\f1\b \cf3 set
+\f0\b0 \cf3  \cf6 a_class\cf3  
+\f1\b \cf3 to
+\f0\b0 \cf3  
+\f1\b \cf3 me
+\f0\b0 \cf3 \
+	
+\f1\b \cf3 script
+\f0\b0 \cf3  \cf6 LapTimeInstance\cf3 \
+		
+\f1\b \cf3 property
+\f0\b0 \cf3  \cf4 parent\cf3  : \cf6 a_class\cf3 \
+		
+\f1\b \cf3 property
+\f0\b0 \cf3  \cf6 _time_records\cf3  : \{\}\
+		
+\f1\b \cf3 property
+\f0\b0 \cf3  \cf6 _start_time\cf3  : 
+\f2\i \cf4 current application's
+\f0\i0 \cf3  \cf6 |NSDate|'s\cf3  \cf6 |date|\cf3 ()\
+	
+\f1\b \cf3 end
+\f0\b0 \cf3  
+\f1\b \cf3 script
+\f0\b0 \cf3 \
+
+\f1\b \cf3 end
+\f0\b0 \cf3  \cf6 start_timer\cf3 \
+\
+\cf2 (*!@group Instance Methods *)\cf3 \
+\
+\cf2 (*!@abstruct Return elapsed time form ((<start_timer>)) in msec\
+@description\
+In addtion to the returned value, pretty printed text is output in log window. \
+@result number\
+*)\cf3 \
+
+\f1\b \cf3 on
+\f0\b0 \cf3  \cf6 duration\cf3 ()\
+	
+\f1\b \cf3 set
+\f0\b0 \cf3  \cf6 a_result\cf3  
+\f1\b \cf3 to
+\f0\b0 \cf3  (
+\f1\b \cf3 my
+\f0\b0 \cf3  \cf6 _start_time's\cf3  \cf6 timeIntervalSinceNow\cf3 () 
+\f1\b \cf3 as
+\f0\b0 \cf3  
+\f2\i \cf5 number
+\f0\i0 \cf3 ) * -1000\
+	
+\f1\b \cf5 log
+\f0\b0 \cf3  (\cf6 a_result\cf3  
+\f1\b \cf3 as
+\f0\b0 \cf3  
+\f2\i \cf5 text
+\f0\i0 \cf3 ) & " [ms]"\
+	
+\f1\b \cf3 return
+\f0\b0 \cf3  \cf6 a_result\cf3 \
+
+\f1\b \cf3 end
+\f0\b0 \cf3  \cf6 duration\cf3 \
+\
+\
+
+\f1\b \cf3 on
+\f0\b0 \cf3  \cf6 record_time\cf3 ()\
+	\cf6 record_time\cf3 ()\
+
+\f1\b \cf3 end
+\f0\b0 \cf3  \cf6 record_time\cf3 \
+\
+\cf2 (*!@abstruct Record elapsed time form ((<start_timer>)) in the instance\
+@result number \
+*)\cf3 \
+
+\f1\b \cf3 on
+\f0\b0 \cf3  \cf6 lap\cf3 ()\
+	
+\f1\b \cf3 set
+\f0\b0 \cf3  \cf6 a_time\cf3  
+\f1\b \cf3 to
+\f0\b0 \cf3  (
+\f1\b \cf3 my
+\f0\b0 \cf3  \cf6 _start_time's\cf3  \cf6 timeIntervalSinceNow\cf3 () 
+\f1\b \cf3 as
+\f0\b0 \cf3  
+\f2\i \cf5 number
+\f0\i0 \cf3 )\
+	
+\f1\b \cf3 set
+\f0\b0 \cf3  
+\f1\b \cf3 end
+\f0\b0 \cf3  
+\f1\b \cf3 of
+\f0\b0 \cf3  
+\f1\b \cf3 my
+\f0\b0 \cf3  \cf6 _time_records\cf3  
+\f1\b \cf3 to
+\f0\b0 \cf3  \cf6 a_time\cf3 \
+	
+\f1\b \cf3 return
+\f0\b0 \cf3  \cf6 a_time\cf3 \
+
+\f1\b \cf3 end
+\f0\b0 \cf3  \cf6 lap\cf3 \
+\
+\cf2 (*!@abstruct Return time difference in msec between times recorded with ((<lap>)) \
+@description\
+In addtion to the returned value, pretty printed text is output in log window. \
+@result list of numbers\
+*)\cf3 \
+
+\f1\b \cf3 on
+\f0\b0 \cf3  \cf6 lap_times\cf3 ()\
+	
+\f1\b \cf3 copy
+\f0\b0 \cf3  
+\f1\b \cf3 my
+\f0\b0 \cf3  \cf6 _time_records\cf3  
+\f1\b \cf3 to
+\f0\b0 \cf3  \cf6 lt\cf3 \
+	
+\f1\b \cf3 repeat
+\f0\b0 \cf3  
+\f1\b \cf3 with
+\f0\b0 \cf3  \cf6 n\cf3  
+\f1\b \cf3 from
+\f0\b0 \cf3  (\cf4 length\cf3  
+\f1\b \cf3 of
+\f0\b0 \cf3  \cf6 lt\cf3 ) 
+\f1\b \cf3 to
+\f0\b0 \cf3  2 
+\f1\b \cf3 by
+\f0\b0 \cf3  -1\
+		
+\f1\b \cf3 tell
+\f0\b0 \cf3  \cf6 lt\cf3 \
+			
+\f1\b \cf3 set
+\f0\b0 \cf3  
+\f1\b \cf3 its
+\f0\b0 \cf3  
+\f2\i \cf5 item
+\f0\i0 \cf3  \cf6 n\cf3  
+\f1\b \cf3 to
+\f0\b0 \cf3  ((((
+\f1\b \cf3 its
+\f0\b0 \cf3  
+\f2\i \cf5 item
+\f0\i0 \cf3  (\cf6 n\cf3  - 1)) - (
+\f1\b \cf3 its
+\f0\b0 \cf3  
+\f2\i \cf5 item
+\f0\i0 \cf3  \cf6 n\cf3 ))) * 1000)\
+		
+\f1\b \cf3 end
+\f0\b0 \cf3  
+\f1\b \cf3 tell
+\f0\b0 \cf3 \
+	
+\f1\b \cf3 end
+\f0\b0 \cf3  
+\f1\b \cf3 repeat
+\f0\b0 \cf3 \
+	
+\f1\b \cf3 set
+\f0\b0 \cf3  
+\f1\b \cf3 first
+\f0\b0 \cf3  
+\f2\i \cf5 item
+\f0\i0 \cf3  
+\f1\b \cf3 of
+\f0\b0 \cf3  \cf6 lt\cf3  
+\f1\b \cf3 to
+\f0\b0 \cf3  -1000 * (
+\f1\b \cf3 first
+\f0\b0 \cf3  
+\f2\i \cf5 item
+\f0\i0 \cf3  
+\f1\b \cf3 of
+\f0\b0 \cf3  \cf6 lt\cf3 )\
+	\
+	
+\f1\b \cf3 script
+\f0\b0 \cf3  \cf6 loop\cf3 \
+		
+\f1\b \cf3 on
+\f0\b0 \cf3  \cf6 do\cf3 (\cf6 x\cf3 )\
+			
+\f1\b \cf3 return
+\f0\b0 \cf3  (\cf6 x\cf3  
+\f1\b \cf3 as
+\f0\b0 \cf3  
+\f2\i \cf5 text
+\f0\i0 \cf3 ) & " [ms]"\
+		
+\f1\b \cf3 end
+\f0\b0 \cf3  \cf6 do\cf3 \
+	
+\f1\b \cf3 end
+\f0\b0 \cf3  
+\f1\b \cf3 script
+\f0\b0 \cf3 \
+	
+\f1\b \cf3 tell
+\f0\b0 \cf3  \cf6 XList's\cf3  \cf6 make_with\cf3 (\cf6 lt\cf3 )'s \cf6 map\cf3 (\cf6 loop\cf3 )\
+		
+\f1\b \cf3 its
+\f0\b0 \cf3  \cf6 unshift\cf3 ("[LapTime records]")\
+		
+\f1\b \cf3 set
+\f0\b0 \cf3  \cf6 a_result\cf3  
+\f1\b \cf3 to
+\f0\b0 \cf3  
+\f1\b \cf3 its
+\f0\b0 \cf3  \cf6 as_text_with\cf3 (\cf4 return\cf3 )\
+	
+\f1\b \cf3 end
+\f0\b0 \cf3  
+\f1\b \cf3 tell
+\f0\b0 \cf3 \
+	
+\f1\b \cf5 log
+\f0\b0 \cf3  \cf6 a_result\cf3 \
+	
+\f1\b \cf3 return
+\f0\b0 \cf3  \cf6 lt\cf3 \
+
+\f1\b \cf3 end
+\f0\b0 \cf3  \cf6 lap_times\cf3 \
+\
+
+\f1\b \cf3 on
+\f0\b0 \cf3  \cf6 time_records\cf3 ()\
+	
+\f1\b \cf3 set
+\f0\b0 \cf3  \cf6 lp\cf3  
+\f1\b \cf3 to
+\f0\b0 \cf3  \cf6 lap_times\cf3 ()\
+	
+\f1\b \cf3 set
+\f0\b0 \cf3  \cf6 tt\cf3  
+\f1\b \cf3 to
+\f0\b0 \cf3  \cf6 total_time\cf3 ()\
+	
+\f1\b \cf3 return
+\f0\b0 \cf3  \{\cf6 lap_times\cf3 :\cf6 lp\cf3 , \cf6 total_time\cf3 :\cf6 tt\cf3 \}\
+
+\f1\b \cf3 end
+\f0\b0 \cf3  \cf6 time_records\cf3 \
+\
+\cf2 (*!@abstruct Return time difference between ((<start_timer>)) and 
+\f3 \cf7 each
+\f0 \cf2  ((<lap>)) in msec\
+@description\
+In addtion to the returned value, pretty printed text is output in log window. \
+@result list of numbers\
+*)\cf3 \
+
+\f1\b \cf3 on
+\f0\b0 \cf3  \cf6 total_time\cf3 ()\
+	
+\f1\b \cf3 set
+\f0\b0 \cf3  \cf6 a_result\cf3  
+\f1\b \cf3 to
+\f0\b0 \cf3  ((
+\f1\b \cf3 end
+\f0\b0 \cf3  
+\f1\b \cf3 of
+\f0\b0 \cf3  
+\f1\b \cf3 my
+\f0\b0 \cf3  \cf6 _time_records\cf3 ) * -1000)\
+	
+\f1\b \cf5 log
+\f0\b0 \cf3  (\cf6 a_result\cf3  
+\f1\b \cf3 as
+\f0\b0 \cf3  
+\f2\i \cf5 text
+\f0\i0 \cf3 ) & " [ms]"\
+	
+\f1\b \cf3 return
+\f0\b0 \cf3  \cf6 a_result\cf3 \
+
+\f1\b \cf3 end
+\f0\b0 \cf3  \cf6 total_time\cf3 \
+\
+
+\f1\b \cf3 on
+\f0\b0 \cf3  \cf6 debug\cf3 ()\
+	
+\f1\b \cf3 tell
+\f0\b0 \cf3  \cf6 start_timer\cf3 ()\
+		
+\f1\b \cf5 delay
+\f0\b0 \cf3  0.1\
+		\cf6 record_time\cf3 ()\
+		
+\f1\b \cf5 delay
+\f0\b0 \cf3  0.2\
+		\cf6 record_time\cf3 ()\
+		\cf6 lap_times\cf3 ()'s \cf6 pprint\cf3 ()\
+		
+\f1\b \cf5 log
+\f0\b0 \cf3  \cf6 total_time\cf3 ()\
+	
+\f1\b \cf3 end
+\f0\b0 \cf3  
+\f1\b \cf3 tell
+\f0\b0 \cf3 \
+
+\f1\b \cf3 end
+\f0\b0 \cf3  \cf6 debug\cf3 \
+\
+
+\f1\b \cf3 on
+\f0\b0 \cf3  \cf6 debug2\cf3 ()\
+	
+\f1\b \cf3 tell
+\f0\b0 \cf3  \cf6 start_timer\cf3 ()\
+		
+\f1\b \cf5 log
+\f0\b0 \cf3  \cf6 duration\cf3 ()\
+	
+\f1\b \cf3 end
+\f0\b0 \cf3  
+\f1\b \cf3 tell
+\f0\b0 \cf3 \
+
+\f1\b \cf3 end
+\f0\b0 \cf3  \cf6 debug2\cf3 \
+\
+
+\f1\b \cf3 on
+\f0\b0 \cf3  \cf6 open_helpbook\cf3 ()\
+	
+\f1\b \cf3 try
+\f0\b0 \cf3 \
+		
+\f1\b \cf3 tell
+\f0\b0 \cf3  
+\f2\i \cf5 script
+\f0\i0 \cf3  "OpenHelpBook" 
+\f1\b \cf3 to
+\f0\b0 \cf3  \cf6 do\cf3 (
+\f1\b \cf8 path to
+\f0\b0 \cf3  
+\f1\b \cf3 me
+\f0\b0 \cf3 )\
+	
+\f1\b \cf3 on
+\f0\b0 \cf3  
+\f1\b \cf3 error
+\f0\b0 \cf3  \cf6 msg\cf3  \cf5 number\cf3  \cf6 errno\cf3 \
+		
+\f1\b \cf5 activate
+\f0\b0 \cf3 \
+		
+\f1\b \cf8 display alert
+\f0\b0 \cf3  (\cf6 msg\cf3  & \cf4 return\cf3  & \cf6 errno\cf3 )\
+	
+\f1\b \cf3 end
+\f0\b0 \cf3  
+\f1\b \cf3 try
+\f0\b0 \cf3 \
+
+\f1\b \cf3 end
+\f0\b0 \cf3  \cf6 open_helpbook\cf3 \
+\
+
+\f1\b \cf3 on
+\f0\b0 \cf3  
+\f1\b \cf5 run
+\f0\b0 \cf3 \
+	\cf2 --return debug()\cf3 \
+	\cf6 open_helpbook\cf3 ()\
+
+\f1\b \cf3 end
+\f0\b0 \cf3  
+\f1\b \cf5 run}
