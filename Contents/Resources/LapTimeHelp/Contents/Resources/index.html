@@ -72,7 +72,7 @@ Instance Methods
 </li>
 <li><a href="http://www.script-factory.net/XModules/LapTime/en/index.html">Home page</a> || <a href="http://www.script-factory.net/XModules/LapTime/changelog.html">ChangeLog</a> || <a href="https://github.com/tkurita/LapTime.scptd">Repository</a> </li>
 </ul>
-<p>LapTime is an AppleScript library to measure execution time of a script of AppleScript. It is useful to evaluate performance of a script and to tune up the script.</p>
+<p>LapTime is an AppleScript library to measure execution time of AppleScript in accurary of a few milliseconds. It is useful to evaluate performance of a script and to tune up the script.</p>
 <p>You can measure execution time by using current date command which is AppleScript's built-in command. But time resolution of AppleScript's date class is 1 sec, which is too rough for performance measurements.By using NSDate of Cocoa, the time resolution of LapTime is below a few msec.</p>
 <p>The simple usage is using <a href="pages/start_timer.html">start_timer</a> and <a href="pages/duration.html">duration</a> methods. <a href="pages/start_timer.html">start_timer</a> generate a new LapTime instance. <a href="pages/duration.html">duration</a> method obtain elapsed time from call of <a href="pages/start_timer.html">start_timer</a>.</p>
 <p>To evaluate required times of parts of your script,use <a href="pages/lap.html">lap</a> and <a href="pages/lap_times.html">lap_times</a> methods.<a href="pages/lap.html">lap</a> recorods the called time into the LapTime instance generaged by <a href="pages/start_timer.html">start_timer</a>.<a href="pages/lap_times.html">lap_times</a> method outputs elapsed times between <a href="pages/lap.html">lap</a>.</p>
