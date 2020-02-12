@@ -10,6 +10,7 @@ By using NSDate of Cocoa, the time resolution of LapTime is below a few msec.
 ## Usage
 English :
 * http://www.script-factory.net/XModules/LapTime/en/index.html
+
 Japanese :
 * http://www.script-factory.net/XModules/LapTime/index.html
 
