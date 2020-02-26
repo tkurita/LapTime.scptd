@@ -46,6 +46,9 @@ Instance Methods
 <option value="#lap">
 - lap
 </option>
+<option value="#lap_">
+- lap_
+</option>
 <option value="#lap_times">
 - lap_times
 </option>
@@ -62,7 +65,7 @@ Instance Methods
 		<div id="contents">
 		<h1>LapTime Reference</h1>
 <ul>
-<li>Version : 2.0</li>
+<li>Version : 2.1</li>
 <li>Author : Kurita Tetsuro <a href="mailto:scriptfactory@mac.com">scriptfactory@mac.com</a></li>
 <li>Requirements : 
 <ul>
@@ -75,11 +78,12 @@ Instance Methods
 <p>LapTime is an AppleScript library to measure execution time of AppleScript in accurary of a few milliseconds. It is useful to evaluate performance of a script and to tune up the script.</p>
 <p>You can measure execution time by using current date command which is AppleScript's built-in command. But time resolution of AppleScript's date class is 1 sec, which is too rough for performance measurements.By using NSDate of Cocoa, the time resolution of LapTime is below a few msec.</p>
 <p>The simple usage is using <a href="pages/start_timer.html">start_timer</a> and <a href="pages/duration.html">duration</a> methods. <a href="pages/start_timer.html">start_timer</a> generate a new LapTime instance. <a href="pages/duration.html">duration</a> method obtain elapsed time from call of <a href="pages/start_timer.html">start_timer</a>.</p>
-<p>To evaluate required times of parts of your script,use <a href="pages/lap.html">lap</a> and <a href="pages/lap_times.html">lap_times</a> methods.<a href="pages/lap.html">lap</a> recorods the called time into the LapTime instance generaged by <a href="pages/start_timer.html">start_timer</a>.<a href="pages/lap_times.html">lap_times</a> method outputs elapsed times between <a href="pages/lap.html">lap</a>.</p>
+<p>To evaluate required times of parts of your script,use <a href="pages/lap.html">lap</a>, <a href="pages/lap_.html">lap_</a> and <a href="pages/lap_times.html">lap_times</a> methods.<a href="pages/lap.html">lap</a> and <a href="pages/lap_.html">lap_</a> recorods the called time into the LapTime instance generaged by <a href="pages/start_timer.html">start_timer</a>.<a href="pages/lap_times.html">lap_times</a> method outputs elapsed times between <a href="pages/lap.html">lap</a> or <lap_>)).</p>
+<p><a href="pages/lap.html">lap</a> records only time.<a href="pages/lap_.html">lap_</a> records time with a given label.The label apears in first column of log output of <a href="pages/lap_times.html">lap_times</a>.The label will help to find the record in the log output.</p>
 <p>For precise evaluations of required times of processings in your script,use <a href="pages/lap.html">lap</a> and <a href="pages/average.html">average</a>.Reapeat execuion of your script many times with repeat statement,and record each execution time with <a href="pages/lap.html">lap</a>.<a href="pages/average.html">average</a> calculate an average of time diffrences between each <a href="pages/lap.html">lap</a> and <a href="pages/start_timer.html">start_timer</a>.</p>
 <div class="sourceCode">
 <div class="scriptButton">
-    <input type="button" value="Open this script" onclick="document.location = this.src" src="applescript://com.apple.scripteditor?action=new&amp;script=use%20LapTime%20:%20script%20%22LapTime%22%0D%0D(*%3D%3D%20Simple%20Usage%20%3D%3D*)%0Dset%20tm%20to%20LapTime%27s%20start_timer()%0Ddelay%200.15%0Dtm%27s%20duration()%20--%20time%20from%20call%20of%20start_time%0D(*151.413917541504%20%5Bms%5D*)%0D%0D(*%3D%3D%20Measure%20required%20times%20of%20parts%20of%20a%20script%20%3D%3D*)%0Dset%20tm%20to%20LapTime%27s%20start_timer()%0Dtm%27s%20lap()%20--%20record%20the%20timming%0Ddelay%200.1%0Dtm%27s%20lap()%0Ddelay%200.2%0Dtm%27s%20lap()%0Dtm%27s%20lap_times()%20--%20pretty%20print%20elapsed%20times%20between%20calls%20of%20lap()%0D(*%5BLap%20Times%5D%0D0.115990638733%20%5Bms%5D%0D100.725054740906%20%5Bms%5D%0D201.471924781799%20%5Bms%5D*)%0D%0D(*%3D%3D%20Take%20an%20average%20of%20lap%20times%20to%20evaluate%20precise%20required%20time%20%3D%3D*)%0Dset%20tm%20to%20LapTime%27s%20start_timer()%0Drepeat%20100%20times%0D%09delay%200.01%0D%09tm%27s%20lap()%0Dend%20repeat%0Dtm%27s%20average()%0D(*%5BAverage%20Time%20of%20Laps%5D%0D11.234790086746%20%5Bms%5D*)" />
+    <input type="button" value="Open this script" onclick="document.location = this.src" src="applescript://com.apple.scripteditor?action=new&amp;script=use%20LapTime%20:%20script%20%22LapTime%22%0D%0D(*%3D%3D%20Simple%20Usage%20%3D%3D*)%0Dset%20tm%20to%20LapTime%27s%20start_timer()%0Ddelay%200.15%0Dtm%27s%20duration()%20--%20time%20from%20call%20of%20start_time%0D(*151.413917541504%20%5Bms%5D*)%0D%0D(*%3D%3D%20Measure%20required%20times%20of%20parts%20of%20a%20script%20%3D%3D*)%0Dset%20tm%20to%20LapTime%27s%20start_timer()%0Dtm%27s%20lap()%20--%20record%20a%20timming%0Ddelay%200.1%0Dtm%27s%20lap:%22Label%201%22%20--%20record%20a%20timming%20with%20a%20label%0Ddelay%200.2%0Dtm%27s%20lap:%22Label%202%22%0Dtm%27s%20lap_times()%20--%20pretty%20print%20elapsed%20times%20between%20calls%20of%20lap()%0D(*%5BLap%20Times%5D%0D0.099897384644%20%5Bms%5D%0DLabel%201%09101.617097854614%20%5Bms%5D%0DLabel%202%09201.478958129883%20%5Bms%5D*)%0D%0D(*%3D%3D%20Take%20an%20average%20of%20lap%20times%20to%20evaluate%20precise%20required%20time%20%3D%3D*)%0Dset%20tm%20to%20LapTime%27s%20start_timer()%0Drepeat%20100%20times%0D%09delay%200.01%0D%09tm%27s%20lap()%0Dend%20repeat%0Dtm%27s%20average()%0D(*%5BAverage%20Time%20of%20Laps%5D%0D11.234790086746%20%5Bms%5D*)" />
 </div><div>
 <span class="langKeyword">use</span> <span class="userDefine">LapTime</span><span class="normal"> : </span><span class="className">script</span><span class="normal"> &quot;LapTime&quot;</span>
 </div>
@@ -107,19 +111,19 @@ Instance Methods
 <span class="langKeyword">set</span> <span class="userDefine">tm</span> <span class="langKeyword">to</span> <span class="userDefine">LapTime's</span> <span class="userDefine">start_timer</span><span class="normal">()</span>
 </div>
 <div>
-<span class="userDefine">tm's</span> <span class="userDefine">lap</span><span class="normal">() </span><span class="comment">-- record the timming</span>
+<span class="userDefine">tm's</span> <span class="userDefine">lap</span><span class="normal">() </span><span class="comment">-- record a timming</span>
 </div>
 <div>
 <span class="commandName">delay</span><span class="normal"> 0.1</span>
 </div>
 <div>
-<span class="userDefine">tm's</span> <span class="userDefine">lap</span><span class="normal">()</span>
+<span class="userDefine">tm's</span> <span class="userDefine">lap</span><span class="normal">:&quot;Label 1&quot; </span><span class="comment">-- record a timming with a label</span>
 </div>
 <div>
 <span class="commandName">delay</span><span class="normal"> 0.2</span>
 </div>
 <div>
-<span class="userDefine">tm's</span> <span class="userDefine">lap</span><span class="normal">()</span>
+<span class="userDefine">tm's</span> <span class="userDefine">lap</span><span class="normal">:&quot;Label 2&quot;</span>
 </div>
 <div>
 <span class="userDefine">tm's</span> <span class="userDefine">lap_times</span><span class="normal">() </span><span class="comment">-- pretty print elapsed times between calls of lap()</span>
@@ -128,13 +132,13 @@ Instance Methods
 <span class="comment">(*[Lap Times]</span>
 </div>
 <div>
-<span class="comment">0.115990638733 [ms]</span>
+<span class="comment">0.099897384644 [ms]</span>
 </div>
 <div>
-<span class="comment">100.725054740906 [ms]</span>
+<span class="comment">Label 1	101.617097854614 [ms]</span>
 </div>
 <div>
-<span class="comment">201.471924781799 [ms]*)</span>
+<span class="comment">Label 2	201.478958129883 [ms]*)</span>
 </div>
 <br />
 <div>
@@ -173,12 +177,14 @@ Instance Methods
 <p>Return elapsed time form <a href="pages/start_timer.html">start_timer</a> in msec</p>
 <h3 id="lap"><a href="pages/lap.html">lap</a></h3>
 <p>Record elapsed time form <a href="pages/start_timer.html">start_timer</a> in the instance</p>
+<h3 id="lap_"><a href="pages/lap_.html">lap_</a></h3>
+<p>Record elapsed time form <a href="pages/start_timer.html">start_timer</a> given a label in the instance</p>
 <h3 id="lap_times"><a href="pages/lap_times.html">lap_times</a></h3>
-<p>Return time difference in msec between times recorded with <a href="pages/lap.html">lap</a> </p>
+<p>Return time difference in msec between times recorded with <a href="pages/lap.html">lap</a>  or <a href="pages/lap_.html">lap_</a></p>
 <h3 id="total_times"><a href="pages/total_times.html">total_times</a></h3>
-<p>Return time difference between each <a href="pages/lap.html">lap</a> and <a href="pages/start_timer.html">start_timer</a> in msec</p>
+<p>Return time difference between each <a href="pages/lap.html">lap</a>, <a href="pages/lap_.html">lap_</a> and <a href="pages/start_timer.html">start_timer</a> in msec</p>
 <h3 id="average"><a href="pages/average.html">average</a></h3>
-<p>Return average of time difference between <a href="pages/start_timer.html">start_timer</a> and each <a href="pages/lap.html">lap</a> in msec</p>
+<p>Return average of time difference between <a href="pages/start_timer.html">start_timer</a> and each <a href="pages/lap.html">lap</a> or <a href="pages/lap_.html">lap_</a> in msec</p>
 		</div>
 		<!-- InstanceBeginEditable name="prev-next-item" --><!-- InstanceEndEditable -->
 	</body>
