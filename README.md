@@ -15,13 +15,13 @@ Japanese :
 * http://www.script-factory.net/XModules/LapTime/index.html
 
 ## Building
-Reqirements :
+Requirements :
 * OS X 10.9 or later.
 * [OpenHelpBook]
 
 [OpenHelpBook]: https://www.script-factory.net/XModules/OpenHelpBook/en/index.html
 
-## Licence
+## License
 
 Copyright &copy; 2020 Kurita Tetsuro
 Licensed under the [GPL license][GPL].
